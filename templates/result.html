@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <style>
+        #main{
+            background-color: black;
+            color: #ff8177;
+            font-size: 22px;
+            /* margin : 100px; */
+         
+        }
+        #btn{
+            display:block;
+            margin:0 auto;
+            width: 120px;
+            height: 40px;
+            color: #ff8177;
+        }
+        #btn after{
+            color : blue;
+            transition:all 0.35s;
+        }
+        body >* {
+            margin:10px;
+        }
+    </style>
+</head>
+<body id="main">
+    <h1 style="text-align: center; color:white ; padding: 50px; ">Prediction</h1>
+    <p style="text-align: center; padding:20px; font-size: 30px;">The uploaded image belongs to Class <p style="color: blanchedalmond; text-align: center;font-size: 50px;text-transform: capitalize;">"{{ predicted_class }}"</p></p>
+    <p style="color:#9e97b5;text-align:center;padding:200px;">Press button to go back to HOMEPAGE</p>
+    <button id="btn"><a href="/">HOMEPAGE</a></button>
+</body>
+</html>

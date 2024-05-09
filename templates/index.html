@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classifier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #090909;
+        }
+
+        .container {
+            width: 700px;
+            padding: 20px;
+            background-color: #ebd2d2;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-left:50px;
+            color:#cf556c;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            text-align: center;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        *{
+          box-sizing : border-box;
+          margin : 0;
+          padding : 0;
+          font-family : 'kumbh Sans' , sans-serif;
+      }
+      
+      .navbar{ 
+          background : #131313;
+          height : 80px;
+          display : flex;
+          justify-content : center;
+          align-items : center;
+          font-size : 1.2rem;
+          position : sticky;
+          top:0;
+          z-index : 999; 
+      }
+      
+      .navbar__container{
+          display : flex;
+          justify-content: space-between;
+          height : 80px;
+          z-index : 1;
+          width : 100%;
+          max-width : 1300px;
+          margin : 0 auto;
+          padding : 0 50px;
+      }
+      
+      #navbar__logo{
+          background-color: #ff8177;
+          background-image: linear-gradient(to top,#ff0844 0%,#ffb199 100%);
+          background-size : 100%;
+          -webkit-background-clip: text;
+          -moz-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          -moz-text-fill-color : transparent;
+          display : flex;
+          align-items : center;
+          cursor : pointer;
+          text-decoration: none;
+          font-size:2rem;
+      }
+      
+      .fa-gem{
+          margin-right : 0.5rem;
+      }
+      
+      .navbar__menu{
+          display: flex;
+          align-items : center;
+          list-style: none;
+          text-align: center;
+      }
+      
+      .navbar__item{
+          height : 80px;
+      }
+      
+      .navbar__links{
+          color : #fff;
+          display : flex;
+          align-items : center;
+          justify-content: center;
+          text-decoration: none;
+          padding : 0 1rem;
+          height: 100%;
+      }
+      
+      .navbar__btn{
+          display : flex;
+          justify-content: center;
+          align-items: center;
+          padding : 0 1rem;
+          width : 100%;
+      }
+      .button{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-decoration : none;
+          padding : 10px 20px;
+          height : 100%;
+          width : 100%;
+          border : none;
+          outline : none;
+          border-radius : 4px;
+          background : #f77062;
+          color : #fff;
+      }
+      .button:hover{
+          background : #4837ff;
+          transition: all 0.3s ease;
+      }
+      .navbar__links:hover{
+          color : #f77062;
+          transform: all 0.3s ease;
+      }
+      
+      @media screen and (max-width:960px ){
+          .navbar__container{
+              display : flex;
+              justify-content: space-between;
+              height : 80px;
+              z-index : 1;
+              width : 100%;
+              max-width : 1300px;
+              padding : 0;
+          }
+          .navbar__menu{
+              display: grid;
+              grid-template-columns: auto;
+              margin : 0;
+              width : 100%;
+              position : absolute;
+              top : -1000px;
+              opacity : 0;
+              transition : all 0.5s ease;
+              height : 50vh;
+              z-index : -1; 
+              background: #131313;
+          }
+          /* javascript will  trigger this | */
+          .navbar__menu.active{
+              background: #131313;
+              top : 100%;
+              opacity: 1;
+              transition : all 0.5s ease;
+              z-index : 99;
+              height : 50vh;
+              font-size:1.6rem;
+          }
+      
+          #navbar__logo{
+              padding-left : 25px;
+          }
+      
+          .navbar__toggle .bar{
+              width : 25px;
+              height : 3px;
+              margin : 5px auto;
+              transition : all 0.3s ease-in-out;
+              background : #fff;
+          }
+          .navbar__item{
+              width : 100%;
+          }
+          .navbar__links{
+              text-align : center;
+              padding : 2rem;
+              width : 100%;
+              display : table;
+          }
+          #mobile-menu{
+              position : absolute;
+              top : 20%;
+              right : 5%;
+              transform : translate(5%,20%);
+          }
+          .navbar__btn{
+              padding-bottom : 2rem;
+          }
+          .button{
+              display : flex;
+              justify-content : center;
+              align-items : center;
+              width : 80%;
+              height: 80px;
+              margin : 0;
+          }
+          .navbar__toggle .bar{
+              display : block;
+              cursor : pointer;
+          }
+          #mobile-menu.is-active .bar:nth-child(2){
+              opacity : 0;
+          }
+          #mobile-menu.is-active .bar:nth-child(1){
+              transform: translateY(8px) rotate(45deg);
+          }
+          #mobile-menu.is-active .bar:nth-child(3){
+              transform: translateY(-8px) rotate(-45deg);
+          }
+      }
+      /* Hero Section CSS */
+      .main{
+          background-color: #141414;
+      }
+      .main__container{
+          display: grid;
+          grid-template-columns : 1fr 1fr;
+          align-items : center;
+          justify-self: center;
+          margin: 0 auto;
+          height : 90vh;
+          background-color: #141414;
+          z-index: 1;
+          width : 100%;
+          max-width: 1300px;
+          padding : 0 50px;
+      }
+      .main__content h1{
+          font-size : 4rem;
+          background-color: #ff8177;
+          background-image:linear-gradient(to top,#ff0844 0%,#ffb199 100%);
+          background-size:100%;
+          -webkit-background-clip:text;
+          -moz-background-clip: text;
+          -webkit-text-fill-color : transparent;
+          -moz-text-fill-color: transparent;
+      }
+      .main__content h2{
+          font-size : 4rem;
+          background-color: #141414;
+          background-image:linear-gradient(to top,#b721ff 0%,#21d4fd 100%);
+          background-size:100%;
+          -webkit-background-clip:text;
+          -moz-background-clip: text;
+          -webkit-text-fill-color : transparent;
+          -moz-text-fill-color: transparent;
+      }
+      .main__content p{
+          margin-top: 1rem;
+          font-size: 2rem;
+          font-weight: 700;
+          color : #fff;
+      }
+      .main__btn{
+          font-size: 1rem;
+          background-image: linear-gradient(to top,#f77062 0%, #fe5196 100%);
+          padding: 14px 32px;
+          border : none;
+          border-radius : 4px;
+          color : #fff;
+          margin-top:2rem;
+          cursor : pointer;
+          position : relative;
+          transition : all 0.35s;
+          outline: none;
+      }
+      .main__btn a{
+          position : relative;
+          z-index : 2;
+          color : #fff;
+          text-decoration: none;
+      }
+      
+      .main__btn:after{
+          position : absolute;
+          content:'';
+          top:0;
+          left:0;
+          width:0;
+          height:100%;
+          background:#4837ff;
+          transition: all 0.35s;
+          border-radius: 4px;
+      }
+      
+      .main__btn:hover{
+          color : #fff;
+      }
+      
+      .main__btn:hover:after{
+          width: 100%;
+      }
+      /* Mobile Responsive */
+      @media screen and (max-width:768px){
+          .main__container{
+              display : grid;
+              grid-template-columns : auto;
+              align-items: center;
+              justify-self: center;
+              width : 100%;
+              margin:0 auto;
+              height : 90vh;
+          }
+      .main__content{
+          text-align: center;
+          margin-bottom: 4rem;
+      }
+      
+      .main__content h1{
+          font-size: 2.5rem;
+          margin-top: 2rem;
+      }
+      .main__content h2{
+          font-size: 3rem;
+      }
+      
+      .main__content p{
+          margin-top : 1rem;
+          font-size: 1.5rem;
+      }
+      }
+      @media screen and (max-width:480px){
+          .main__content h1{
+              font-size: 2rem;
+              margin-top: 3rem;
+          }
+          .main__content h2{
+              font-size: 2rem;
+          }
+          
+          .main__content p{
+              margin-top : 2rem;
+              font-size: 1.5rem;
+          }
+          .main__btn{
+              padding : 12px 36px;
+              margin : 2.5rem 0;
+          }
+      }
+      /* FOOTER SECTION */
+      .footer__container{
+          background-color : #141414;
+          padding : 5rem 0;
+          display: flex;
+          flex-direction : column;
+          justify-content: center;
+          align-items : center;
+      }
+      
+      .footer__links{
+          width : 100%;
+          max-width : 1000px;
+          display : flex;
+          justify-content : center;
+      }
+      .footer__links--items{
+          display : flex;
+          flex-direction : column;
+          align-items : flex-start;
+          margin : 16px;
+          text-align : left;
+          width : 160px;
+          box-sizing : border-box;
+      }
+      
+      .footer__links--items h2{
+          margin-bottom : 16px;
+          color : #fff;
+      }
+      .footer__links--items a{
+          color : #fff;
+          text-decoration : none;
+          margin-bottom : 0.5rem;
+      }
+      
+      .footer__links--items a:hover{
+          color : #d66a6a;
+          transition : 0.3s ease-out;
+      }
+  #INPUT{
+    background-color:#131313;
+    display: flex;
+    justify-content: center;
+    width: 1400px;
+    height:300px;
+  }
+  .image-container{
+    display: flex;
+  }
+  .image-container img{
+    width : 20%;
+    margin: 0 5px;
+  }
+  .dropdown button{
+    background-color: #141414;
+    color:#fff;
+    padding: 10px 15px;
+    cursor : pointer;
+    border: none;
+  }
+  .dropdown a{
+    display : block;
+    color : white;
+    text-decoration: none;
+    padding: 10px 15px;
+  }
+  .dropdown .Members{
+     position:absolute;
+     display:none;
+     color:white;
+  }
+  .dropdown:hover .Members{
+    display: block;
+  }
+  .dropdown:hover button{
+    background-color: #ff0844;
+  }
+  .dropdown a:hover{
+    background-color: #b12a5b;
+  }
+    </style>
+</head>
+<body>
+        <!-- NAVBAR SECTION -->
+        <nav class="navbar">
+            <div class="navbar__container">
+                <a href="#" id="navbar__logo">ITP-PROJECT</a>
+                <div class="navbar__toggle" id="mobile-menu">
+                </div>
+                <ul class="navbar__menu">
+                    <li class="navbar__item">
+                        <a href="/" class="navbar__links">HOME</a>
+                    </li>
+                    <li class="navbar__item">
+                        <!-- <a href="#" class="navbar__links">TEAM</a> -->
+                        <div class="dropdown">
+                            <button style="size: 10px;margin-top: 17px; font-size: 20px;">Team</button>
+                            <div class="Members">
+                                <a href="https://github.com/sangameshwar4495">Sangameshwar</a>
+                                <a href="https://github.com/monishreddy2005">Monish</a>
+                                <a href="https://github.com/iotaARYAN21">Aryan</a>
+                            </div>
+                        </div>
+
+                    </li>
+                   
+                    <li class="navbar__btn">
+                        <a href="mailto:sangameshwar4495@gmail.com" class="button">SUPPORT</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+       
+        <div class="main">
+            <div class="main__container">
+                <div class="main__content">
+                    <h1 style="margin-left:0 ;">WEB IMAGE</h1>
+                    <h2>RECOGNISER</h2><br>
+                    <p style="font-family:Josefin Sans">Programming Group Project</p>
+                    <button class="main__btn"><a href="#INPUT">Get Started</a></button>
+                </div>
+            </div>
+        </div>
+    <div id="INPUT">
+    <div class="container">
+        <h1 style="color:#cf556c">Upload an Image</h1><br><br>
+        <!-- <h2>Upload an Image</h2><br> -->
+        <form action="/" method="post" enctype="multipart/form-data">
+            <input type="file" name="file"><br>
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+    </div>
+        <!-- FOOTER SECTION -->
+        <div class="footer__container">
+            <div class="footer__links">
+                <div class="footer__link--wrapper">
+                    <div class="footer__links--items">
+                        <h2 style="font-size: 20px ; font-family:Josefin Sans">Resources Used</h2>
+                        <a href="https://pytorch.org/" style="font-family:Josefin Sans;">Pytorch</a>
+                        <a href="https://en.wikipedia.org/wiki/Convolutional_neural_network" style="font-family:Josefin Sans;">CNN</a>
+                        <a href="https://pytorch.org/vision/stable/generated/torchvision.datasets.CIFAR10.html" style="font-family:Josefin Sans;">CIFAR10</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
